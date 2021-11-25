@@ -2,9 +2,17 @@ CLASS_NAMES: ['Car', 'Bus', 'Truck', 'Pedestrian', 'Cyclist']
 
 DATA_CONFIG:
     _BASE_CONFIG_: cfgs/dataset_configs/once_dataset.yaml
+    DATA_PROCESSOR:
+        - NAME: transform_points_to_voxels
+          VOXEL_SIZE: [0.2, 0.2, 8]
+          MAX_POINTS_PER_VOXEL: 16
+          MAX_NUMBER_OF_VOXELS: {
+            'train': 60000,
+            'test': 60000
+          }
 
 MODEL:
-    _BASE_CONFIG_: cfgs/model_configs/pv_rcnn.yaml
+    _BASE_CONFIG_: cfgs/model_configs/pointpillar.yaml
     DENSE_HEAD:
         ANCHOR_GENERATOR_CONFIG: [
             {
@@ -13,29 +21,29 @@ MODEL:
                 'anchor_rotations': [0, 1.57],
                 'anchor_bottom_heights': [-1.71],
                 'align_center': False,
-                'feature_map_stride': 8,
+                'feature_map_stride': 2,
                 'matched_threshold': 0.6,
                 'unmatched_threshold': 0.45
             },
             {
-                'class_name': 'Bus',
-                'anchor_sizes': [[11.11, 2.88, 3.41]],
-                'anchor_rotations': [0, 1.57],
-                'anchor_bottom_heights': [-1.74],
-                'align_center': False,
-                'feature_map_stride': 8,
-                'matched_threshold': 0.55,
-                'unmatched_threshold': 0.4
+              'class_name': 'Bus',
+              'anchor_sizes': [[11.11, 2.88, 3.41]],
+              'anchor_rotations': [0, 1.57],
+              'anchor_bottom_heights': [-1.74],
+              'align_center': False,
+              'feature_map_stride': 2,
+              'matched_threshold': 0.55,
+              'unmatched_threshold': 0.4
             },
             {
-                'class_name': 'Truck',
-                'anchor_sizes': [[7.52, 2.50, 2.62]],
-                'anchor_rotations': [0, 1.57],
-                'anchor_bottom_heights': [-1.55],
-                'align_center': False,
-                'feature_map_stride': 8,
-                'matched_threshold': 0.55,
-                'unmatched_threshold': 0.4
+              'class_name': 'Truck',
+              'anchor_sizes': [[7.52, 2.50, 2.62]],
+              'anchor_rotations': [0, 1.57],
+              'anchor_bottom_heights': [-1.55],
+              'align_center': False,
+              'feature_map_stride': 2,
+              'matched_threshold': 0.55,
+              'unmatched_threshold': 0.4
             },
             {
                 'class_name': 'Pedestrian',
@@ -43,7 +51,7 @@ MODEL:
                 'anchor_rotations': [0, 1.57],
                 'anchor_bottom_heights': [-1.62],
                 'align_center': False,
-                'feature_map_stride': 8,
+                'feature_map_stride': 2,
                 'matched_threshold': 0.3,
                 'unmatched_threshold': 0.15
             },
@@ -53,15 +61,11 @@ MODEL:
                 'anchor_rotations': [0, 1.57],
                 'anchor_bottom_heights': [-1.65],
                 'align_center': False,
-                'feature_map_stride': 8,
+                'feature_map_stride': 2,
                 'matched_threshold': 0.5,
                 'unmatched_threshold': 0.35
             }
         ]
-
-    PFE:
-        NUM_KEYPOINTS: 4096
-        FEATURES_SOURCE: ['bev', 'x_conv3', 'x_conv4', 'raw_points']
 
 OPTIMIZATION:
     BATCH_SIZE_PER_GPU: 4

@@ -12,7 +12,10 @@ class CenterAssigner(object):
         self.gaussian_overlap = assigner_cfg.gaussian_overlap
         self._max_objs = assigner_cfg.max_objs
         self._min_radius = assigner_cfg.min_radius
-        self.class_to_idx = assigner_cfg.mapping
+        all_class_names = []
+        for task in tasks:
+            all_class_names.extend(task['class_names'])
+        self.class_to_idx = {key: val + 1 for val, key in enumerate(all_class_names)}
         self.grid_size = grid_size
         self.pc_range = pc_range
         self.voxel_size = voxel_size

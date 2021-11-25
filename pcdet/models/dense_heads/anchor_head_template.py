@@ -16,6 +16,7 @@ class AnchorHeadTemplate(nn.Module):
         self.class_names = class_names
         self.predict_boxes_when_training = predict_boxes_when_training
         self.use_multihead = self.model_cfg.get('USE_MULTIHEAD', False)
+        self.model_type = 'origin'
 
         anchor_target_cfg = self.model_cfg.TARGET_ASSIGNER_CONFIG
         self.box_coder = getattr(box_coder_utils, anchor_target_cfg.BOX_CODER)(

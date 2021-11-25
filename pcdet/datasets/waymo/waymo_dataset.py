@@ -240,9 +240,10 @@ class WaymoDataset(DatasetTemplate):
         eval_det_annos = copy.deepcopy(det_annos)
         eval_gt_annos = [copy.deepcopy(info['annos']) for info in self.infos]
 
-        if kwargs['eval_metric'] == 'kitti':
+        eval_metric = kwargs.get('eval_metric', 'waymo')
+        if eval_metric == 'kitti':
             ap_result_str, ap_dict = kitti_eval(eval_det_annos, eval_gt_annos)
-        elif kwargs['eval_metric'] == 'waymo':
+        elif eval_metric == 'waymo':
             ap_result_str, ap_dict = waymo_eval(eval_det_annos, eval_gt_annos)
         else:
             raise NotImplementedError

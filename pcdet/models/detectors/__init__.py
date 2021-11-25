@@ -7,7 +7,6 @@ from .second_net import SECONDNet
 from .second_net_iou import SECONDNetIoU
 from .voxel_rcnn import VoxelRCNN
 from .center_point import CenterPoints
-from .semi_second import SemiSECOND
 
 __all__ = {
     'Detector3DTemplate': Detector3DTemplate,
@@ -19,7 +18,6 @@ __all__ = {
     'SECONDNetIoU': SECONDNetIoU,
     'VoxelRCNN': VoxelRCNN,
     'CenterPoints': CenterPoints,
-    'SemiSECOND': SemiSECOND
 }
 
 

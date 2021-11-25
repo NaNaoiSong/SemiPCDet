@@ -109,7 +109,7 @@ def eval_one_epoch(cfg, model, dataloader, epoch_id, logger, dist_test=False, sa
 
     result_str, result_dict = dataset.evaluation(
         det_annos, class_names,
-        eval_metric=cfg.MODEL.POST_PROCESSING.EVAL_METRIC,
+        eval_metric=cfg.MODEL.POST_PROCESSING.get('EVAL_METRIC', None),
         output_path=final_output_dir
     )
 

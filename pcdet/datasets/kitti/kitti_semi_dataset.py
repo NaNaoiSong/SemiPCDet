@@ -274,7 +274,7 @@ class KITTIPretrainDataset(KITTISemiDataset):
             dataset_cfg=dataset_cfg, class_names=class_names, infos=infos, training=training, root_path=root_path,
             logger=logger
         )
-        self.repeat = dataset_cfg.get('PRETRAIN_REPEST', 1)
+        self.repeat = dataset_cfg.get('PRETRAIN_REPEAT', 1)
 
     def __len__(self):
         return super().__len__() * self.repeat
@@ -340,10 +340,11 @@ class KITTILabeledDataset(KITTISemiDataset):
             dataset_cfg=dataset_cfg, class_names=class_names, infos=infos, training=training, root_path=root_path,
             logger=logger
         )
+        self.repeat = dataset_cfg.get('LABEL_REPEAT', 5)
         self.labeled_data_for = dataset_cfg.LABELED_DATA_FOR
 
     def __getitem__(self, index):
-        if self._merge_all_iters_to_one_epoch:
+        if self._merge_all_iters_to_one_epoch or self.repeat > 1:
             index = index % len(self.kitti_infos)
 
         info = copy.deepcopy(self.kitti_infos[index])

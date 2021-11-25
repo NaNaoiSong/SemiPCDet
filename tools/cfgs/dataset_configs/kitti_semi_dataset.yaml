@@ -2,7 +2,8 @@ DATASET: 'KittiDataset'
 DATA_PATH: '/data/dataset/kitti'
 
 LABELED_RATIO: 0.01
-PRETRAIN_REPEST: 5
+PRETRAIN_REPEAT: 10
+LABEL_REPEAT: 5
 
 LABELED_DATA_FOR: ['teacher', 'student']
 UNLABELED_DATA_FOR: ['teacher', 'student']

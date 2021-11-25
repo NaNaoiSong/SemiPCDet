@@ -97,6 +97,14 @@ def create_logger(log_file=None, rank=0, log_level=logging.INFO):
     return logger
 
 
+def add_log_file(logger, log_file, rank=0, log_level=logging.INFO):
+    file_handler = logging.FileHandler(filename=log_file)
+    file_handler.setLevel(log_level if rank == 0 else 'ERROR')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    return logger
+
+
 def set_random_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
